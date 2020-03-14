@@ -23,7 +23,7 @@ const routes = [
   { path: "/logout", name: "logout", component: Logout },
   { path: "/users/:id", name: "user-show", component: UserShow },
   { path: "/users/:id/edit", name: "user-edit", component: UserEdit },
-  { path: "/journeyshow/:id", name: "journey-show", component: JourneyShow }
+  { path: "/journeys/:id", name: "journey-show", component: JourneyShow }
 ];
 
 const router = new VueRouter({

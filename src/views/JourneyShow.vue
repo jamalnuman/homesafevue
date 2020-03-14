@@ -1,5 +1,11 @@
 <template>
   <div class="journey-show">
+    <form v-on:submit.prevent="getLocation()">
+      <h2>{{lat}}</h2>
+      <h2>{{long}}</h2>
+      <input type="submit" value="Get Coordinates">
+    </form>
+    <!-- <h1 @click="getLocation()">{{ lat }}</h1> -->
 
     <ul>
       <li class="text-danger" v-for="error in errors">{{ error }}</li>
@@ -15,6 +21,7 @@
     <div>
       <button @click="createJourney()">Create Journey!</button>
     </div>
+
   </div>
   
 </template>
@@ -32,11 +39,30 @@ export default {
       starting_address: "",
       latitude:"",
       longitude:"",
-      errors: []
+      errors: [],
+      lat: "",
+      long: ""
     }
   },
   created: function() {},
   methods:{
+
+    
+    getLocation: function() {
+      if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(this.show); 
+      } else {
+        this.lat = "Geolocation is not supported by this browser.";
+      }
+    },
+
+    show: function(position) {
+      console.log(position)
+      this.lat = position.coords.latitude
+      this.long = position.coords.longitude
+    },
+
+
     createJourney: function(){
       var journeyParams = {
         address: this.starting_address
@@ -62,7 +88,7 @@ export default {
                         }
                       };
     
-    
+          
           if(navigator.geolocation) {            
              var options = {
                             enableHighAccuracy: true,
@@ -77,11 +103,7 @@ export default {
         }).catch(error => {
           this.errors = error.response.data.errors;
         });
-    }
+    },
   }
-};
-
-
-
-
+}
 </script>

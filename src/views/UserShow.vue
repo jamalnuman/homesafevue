@@ -63,7 +63,7 @@ export default{
       this.$router.push("/users/" + this.$route.params.id + "/edit");
     },
     createJourney: function(){
-      this.$router.push("/journeyshow/" + this.$route.params.id)
+      this.$router.push("/journeys/" + this.$route.params.id)
     },
     completeUserJourney: function(inputUserJourney) {
       axios

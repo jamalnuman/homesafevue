@@ -16,7 +16,7 @@
     <h3>Please enter a starting point</h3>
       Starting Address: <input type="text" v-model="starting_address">
     <h3>Your starting latitude: {{latitude}}</h3>
-    <h3>Your ending longitude: {{longitude}}</h3>
+    <h3>Your starting longitude: {{longitude}}</h3>
 
     <div>
       <button @click="createJourney()">Create Journey!</button>
@@ -42,20 +42,42 @@ export default {
       errors: [],
       lat: "",
       long: "",
-      gps_error: ""
+      gps_error: "",
+      watch_id: ""
     }
   },
 
-  created: function() {},
+  mounted: function() {
+
+    // window.setInterval(() => {
+    // this.getLocation();
+    // }, 5000)
+  
+    // if (navigator.geolocation) {
+    //   var options = {
+    //                  enableHighAccuracy: false,
+    //                  timeout: 20000,
+    //                  maximumAge: 0
+    //                  };
+    //   console.log('this worked!')
+    //   this.watch_id = navigator.geolocation.watchPosition(this.showGps, this.showError);
+    //   console.log(this.watch_id)
+    // } else {
+    //   this.gps_error = "Geolocation is not supported by this browser.";
+    // }
+  },
+
   methods:{
+
 
   getLocation: function() {
     if (navigator.geolocation) {
       var options = {
-                     enableHighAccuracy: true,
-                     timeout: 20000,
+                     enableHighAccuracy: false,
+                     timeout: 5000,
                      maximumAge: 0
                      };
+      console.log('this is working!')
       navigator.geolocation.watchPosition(this.showGps, this.showError, options); 
     } else {
       this.gps_error = "Geolocation is not supported by this browser.";
@@ -70,6 +92,7 @@ export default {
   },
 
   showError: function(error) {
+    console.log(error)
     switch(error.code) {
       case error.PERMISSION_DENIED:
         this.gps_error = "User denied the request for Geolocation."
@@ -100,7 +123,7 @@ export default {
         
         if(navigator.geolocation) {            
            var options = {
-                          enableHighAccuracy: true,
+                          enableHighAccuracy: false,
                           timeout: 20000,
                           maximumAge: 0
                           };

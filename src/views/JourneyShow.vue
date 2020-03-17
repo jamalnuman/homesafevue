@@ -9,6 +9,11 @@
 
     <h3>You are going to {{journey.starting_location.name}}</h3>
     <h3>The address you are going to is {{journey.starting_location.address}}</h3>
+
+    <h3 >These are the people that will join you:</h3>
+    <ul>
+      <li v-for="user in journey.users">{{user.first_name + " " + user.last_name}}</li>
+    </ul>
     
 
     <ul>
@@ -32,7 +37,7 @@
         </option>
       </select>
     <div>
-      <button v-on:submit="addUser()">Add User</button>
+      <button @click="addUser()">Add User</button>
     </div>
 
     <div>
@@ -60,7 +65,8 @@ export default {
       errors: [],
       gps_error: "",
       journey: {
-        starting_location: {}
+        starting_location: {},
+        users: {}
       }
     }
   },
@@ -70,41 +76,35 @@ export default {
     axios
       .get('/api/journeys/' + this.$route.params.id)
       .then(response => {
-        //console.log(response.data)
+        console.log(response.data)
         this.journey = response.data;
       })
 
     axios
       .get("/api/users")
       .then(response => {
-        console.log(response)
+        //console.log(response)
         this.users = response.data;
       });
-
-    // window.setInterval(() => {
-    // this.getLocation();
-    // }, 5000)
-  
-    // if (navigator.geolocation) {
-    //   var options = {
-    //                  enableHighAccuracy: false,
-    //                  timeout: 20000,
-    //                  maximumAge: 0
-    //                  };
-    //   console.log('this worked!')
-    //   this.watch_id = navigator.geolocation.watchPosition(this.showGps, this.showError);
-    //   console.log(this.watch_id)
-    // } else {
-    //   this.gps_error = "Geolocation is not supported by this browser.";
-    // }
   },
 
-  methods:{
-
+  methods: {
     
 
 
-  
+
+    addUser: function(){
+      var userJourneyParams = {
+        user_id: this.userId
+      };
+
+      axios
+        .post(`/api/journeys/${this.$route.params.id}/add_user`, userJourneyParams)
+        .then(response => {
+          console.log(response)
+          this.journey = response.data
+        })
+    },
   }
 }
 </script>

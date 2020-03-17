@@ -65,7 +65,7 @@ export default  {
         .patch("/api/users/" + this.$route.params.id, userParams)
         .then(response => {
           console.log(response)
-          this.$router.push("/users/" + response.data.user_id)//here we are NOT getting the 'response' fron the sessions controller...but from the update action, of the user's controller.IMPORTANT TO NOTE THAT THE 'DATA' IS FROM THE PARTIAL FILE OF THE CONTROLLER BEING CALLED UPON..IN THIS CASE THE USERS CONTROLLER
+          this.$router.push("/users/" + response.data.id)//here we are NOT getting the 'response' fron the sessions controller...but from the update action, of the user's controller.IMPORTANT TO NOTE THAT THE 'DATA' IS FROM THE PARTIAL FILE OF THE CONTROLLER BEING CALLED UPON..IN THIS CASE THE USERS CONTROLLER
         }).catch(error => {
           this.errors = error.response.data.errors;
         });

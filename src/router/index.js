@@ -9,6 +9,7 @@ import Logout from "../views/Logout.vue";
 import UserShow from "../views/UserShow.vue"
 import UserEdit from "../views/UserEdit.vue"
 import JourneyShow from "../views/JourneyShow.vue"
+import UserJourneyShow from "../views/UserJourneyShow.vue"
 
 
 
@@ -23,7 +24,9 @@ const routes = [
   { path: "/logout", name: "logout", component: Logout },
   { path: "/users/:id", name: "user-show", component: UserShow },
   { path: "/users/:id/edit", name: "user-edit", component: UserEdit },
-  { path: "/journeys/:id", name: "journey-show", component: JourneyShow }
+  { path: "/journeys/:id", name: "journey-show", component: JourneyShow },
+  { path: "/userjourney/:id", name: "userjourney-show", component: UserJourneyShow }
+
 ];
 
 const router = new VueRouter({

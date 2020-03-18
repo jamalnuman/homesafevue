@@ -32,12 +32,18 @@
 
     <h3>Select from the following users to join you:</h3>
       <select v-model="userId">
-        <option v-for="user in users" :value="user.id">
+        <option v-for="user in usersMap" :value="user.id">
           {{ user.first_name + " " + user.last_name }}
+          
         </option>
       </select>
     <div>
       <button @click="addUser()">Add User</button>
+      <button @click="deleteUser()">Delete User</button>
+    </div>
+
+    <div>
+      <button @click="createMap()">Go!</button>
     </div>
 
     <div>
@@ -58,53 +64,74 @@ var axios = require('axios')
 export default {
   data: function(){
     return {
-      users: [],
+      usersMap: {},
       userId: "",
-      latitude:"",
-      longitude:"",
+      loggedInUser: "",
       errors: [],
-      gps_error: "",
       journey: {
         starting_location: {},
-        users: {}
+        users: []
       }
     }
   },
 
-  created: function() {
-
+  mounted: function() {
     axios
       .get('/api/journeys/' + this.$route.params.id)
       .then(response => {
-        console.log(response.data)
+        //console.log(response.data.user_journey)
         this.journey = response.data;
-      })
+        console.log(this.journey);
+        this.loggedInUser = this.journey.users[0].id;
+      });
 
     axios
       .get("/api/users")
       .then(response => {
-        //console.log(response)
-        this.users = response.data;
+        
+        const users = response.data;
+        let map = {}
+        for (const user of users) {
+          map[user.id] = user
+        }
+        this.usersMap = map;
       });
+
   },
 
   methods: {
-    
-
-
-
-    addUser: function(){
-      var userJourneyParams = {
-        user_id: this.userId
-      };
-
-      axios
-        .post(`/api/journeys/${this.$route.params.id}/add_user`, userJourneyParams)
-        .then(response => {
-          console.log(response)
-          this.journey = response.data
-        })
+    deleteUser: function() {
+      const removeId = this.userId
+      const remainingUsers = this.journey.users.filter(function (user) {
+        return user.id != removeId;
+      })
+      this.journey.users = remainingUsers;
     },
+    addUser: function() {
+      const user = this.usersMap[this.userId];
+      this.journey.users.push(user)
+      // var userJourneyParams = {
+      //   user_id: this.userId
+      // };
+
+    },
+
+    createMap: function() {
+      // add our users
+      const params = {
+        user_ids: this.journey.users.map(user => {
+          return user.id;
+        })
+      }
+      console.log(params);
+      axios
+        .post(`/api/journeys/${this.$route.params.id}/add_users`, params)
+        .then(response => {
+          this.$router.push("/userjourney/" + this.loggedInUser)
+    
+        });
+      }
+      
   }
 }
 </script>

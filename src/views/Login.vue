@@ -43,8 +43,13 @@ export default {
           console.log(response)
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.jwt;
+
+          //this.$parent.userid = response.data.user_id;
+            
           localStorage.setItem("jwt", response.data.jwt);
           this.$router.push("/users/" + response.data.user_id);//this is cause the sessions returns a key of user_id..refer to the controller's session on the backend
+
+
         })
         .catch(error => {
           this.errors = ["Invalid email or password."];

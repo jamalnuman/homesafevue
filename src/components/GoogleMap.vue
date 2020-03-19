@@ -13,6 +13,9 @@
       ></gmap-marker> -->
       <gmap-marker
         :position="startingCoords"
+        
+        
+
       ></gmap-marker>
     </gmap-map>
   </div>
@@ -27,7 +30,8 @@ export default {
     };
   },
   props: {
-    startingCoords: Object
+    startingCoords: Object,
+    endingCoords: Object
   },
   mounted() {
     // get starting location for journey (props)

@@ -25,17 +25,17 @@
       </div>
     </div>
 
-    <h1>Lets create a Trip!</h1>
+    <h3>If the drop-down list, does not include your starting and/or ending location, please create them.</h3>
     <form @submit.prevent="createLocation()">
       Name<input type="text" v-model="locationName">
       Address<input type="text" v-model="locationAddress">
       Phone Number<input type="text" v-model="locationPhoneNumber">
-      <input type="submit" value="Create Location!">
+      <input type="submit" value="Enter">
     </form>
 
-    <h3>Select from the following locations:</h3>
+    <h3>Select your starting location:</h3>
     <div>
-      <label>Starting Location: </label>
+      <label>Starting Locations: </label>
       <select v-model="startingLocationId">
         <option v-for="location in locations" :value="location.id">
           {{location.name}}

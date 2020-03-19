@@ -57,7 +57,7 @@ export default {
     axios
       .get('/api/journeys/' + this.$route.params.id)//calling the specific journey number
       .then(response => {
-        //console.log(response.data.user_journey)
+        console.log(response.data.user_journey)
         this.journey = response.data;
         //console.log(this.journey);
         this.loggedInUser = this.journey.users[0].id;//the current_user is the first user[0] in journey.users[0]..this will be used below, when being redirected to the specific user's journey show page
@@ -100,6 +100,7 @@ export default {
         .post(`/api/journeys/${this.$route.params.id}/add_users`, params)//this will hit the route in the backend and add the list of users to the Journey
         .then(response => {
           this.$router.push(`/journeys/${this.$route.params.id}/userjourney/${this.loggedInUser}`);
+          //being redirected to the journeys show page that was just created which has a userjourney that is linked to it..the userjourney is linked to the logged in user. 
 
           // this.$router.push("/userjourney/" + this.loggedInUser)//being redirected to the specific userjourney page.
         });

@@ -25,7 +25,9 @@ const routes = [
   { path: "/users/:id", name: "user-show", component: UserShow },
   { path: "/users/:id/edit", name: "user-edit", component: UserEdit },
   { path: "/journeys/:id", name: "journey-show", component: JourneyShow },
-  { path: "/userjourney/:id", name: "userjourney-show", component: UserJourneyShow }
+  // { path: "/userjourney/:id", name: "userjourney-show", component: UserJourneyShow }
+  { path: "/journeys/:journeyId/userjourney/:id", name: "userjourney-show", component: UserJourneyShow }
+
 
 ];
 

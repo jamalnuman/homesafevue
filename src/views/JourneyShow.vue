@@ -99,7 +99,9 @@ export default {
       axios
         .post(`/api/journeys/${this.$route.params.id}/add_users`, params)//this will hit the route in the backend and add the list of users to the Journey
         .then(response => {
-          this.$router.push("/userjourney/" + this.loggedInUser)//being redirected to the specific userjourney page.
+          this.$router.push(`/journeys/${this.$route.params.id}/userjourney/${this.loggedInUser}`);
+
+          // this.$router.push("/userjourney/" + this.loggedInUser)//being redirected to the specific userjourney page.
         });
       }    
   }

@@ -80,7 +80,7 @@ export default {
         });
   },
   methods: {
-
+    
     // createLocation: function() {
     //   var locationParams = {
     //     name: this.locationName,

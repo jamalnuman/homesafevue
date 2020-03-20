@@ -13,6 +13,9 @@
         v-if="endingCoords"
         :position="endingCoords"
       ></gmap-marker>
+      <gmap-marker
+        :position="currentCoords"
+      ></gmap-marker>
     </gmap-map>
   </div>
 </template>
@@ -29,10 +32,11 @@ export default {
   },
   props: {
     startingCoords: Object,
-    endingCoords: Object
+    endingCoords: Object,
+    currentCoords: Object
   },
   mounted() {
-    console.log(gmapApi)
+    //console.log(gmapApi)
     // var directionsService = new gmapApi.maps.DirectionsService();
     // var directionsDisplay = new gmapApi.maps.DirectionsRenderer();
     // directionsDisplay.setMap(this.$refs.map.$mapObject);

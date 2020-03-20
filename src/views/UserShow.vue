@@ -81,7 +81,7 @@ export default{
     axios
       .get("/api/users/" + this.$route.params.id)
       .then(response => {
-        //console.log(response.data)
+        console.log(response.data)
         this.user = response.data;
       });
 
@@ -130,6 +130,7 @@ export default{
 
     completeUserJourney: function(inputUserJourney) {
       axios
+        // console.log(inputUserJourney)
         .patch("/api/user_journeys/" + inputUserJourney.id, {completed: true})
         .then(response => {
           inputUserJourney.completed = true;

@@ -5,17 +5,12 @@
       :zoom="16"
       style="width:100%;height:1000px;"
     >
-      <!-- <gmap-marker
-        :key="index"
-        v-for="(m, index) in markers"
-        :position="m"
-        @click="center=m"
-      ></gmap-marker> -->
       <gmap-marker
         :position="startingCoords"
-        
-        
-
+      ></gmap-marker>
+      <gmap-marker
+        v-if="endingCoords"
+        :position="endingCoords"
       ></gmap-marker>
     </gmap-map>
   </div>
@@ -35,7 +30,7 @@ export default {
   },
   mounted() {
     // get starting location for journey (props)
-    console.log(this.startingCoords);
+    console.log(this.endingCoords);
     // center map and create marker on starting location
     
     // create marker for user's end location

@@ -38,7 +38,7 @@ export default {
   data() {
     return {
       startCoords: { lat: 45.508, lng: -73.587 },
-      endCoords: { lat: null, lng: null },
+      endCoords: null,
       endingLocationId: "", 
       // locationName: "",
       // locationAddress: "",
@@ -58,8 +58,19 @@ export default {
           lat: parseFloat(data.starting_location.latitude),//latitude and longitude are a string cause of the json return and need to be numbers when used in goodle maps 
           lng: parseFloat(data.starting_location.longitude)
         };
-        
+        // make call to get user journeys
+        axios
+          .get("/api/user_journeys/" + this.userJourneyId)
+          .then(response => {
+            console.log(response.data)
+            this.endCoords = { 
+              lat: parseFloat(response.data.ending_location.latitude),
+              lng: parseFloat(response.data.ending_location.longitude)
+            };
+          });
       });
+
+      
 
       axios
         .get('/api/locations')
@@ -95,12 +106,13 @@ export default {
       };
 
       axios
-        .patch("/api/user_journeys/" + userJourneyId)
+        .patch("/api/user_journeys/" + this.userJourneyId, endingLocationParams)
         .then(response => {
-          //display the route with two markers 
+          //display the route with two markers
+          console.log(response.data)
           this.endCoords = { 
-            lat: parseFloat(response.data.starting_location.latitude),
-            lng: parseFloat(response.data.starting_location.longitude)
+            lat: parseFloat(response.data.ending_location.latitude),
+            lng: parseFloat(response.data.ending_location.longitude)
         };
       });
     },

@@ -103,9 +103,20 @@ export default {
         lng: parseFloat(position.coords.longitude)
       }
 
-      let offset = 150;
+      let offset = 0.150;
 
-      if (this.currentCoords.lat >= (this.endCoords - offset) &&)
+      if ((this.currentCoords.lat >= (this.endCoords.lat - offset) && this.currentCoords.lat <= (this.endCoords.lat + offset)) && (this.currentCoords.lng >= (this.endCoords.lng - offset) && this.currentCoords.lng <= (this.endcoords.lng + offset))){
+        
+        let completedParams = {
+          completed: true
+        }
+
+        axios
+          .patch("/api/user_journeys/" + this.userJourneyId, completedParams)
+          .then (response => {
+            console.log(response)
+          });
+        }
     },
 
     showError: function(error) {

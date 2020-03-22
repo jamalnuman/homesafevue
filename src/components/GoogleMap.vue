@@ -2,7 +2,7 @@
   <div>
     <gmap-map
       :center="startingCoords"
-      :zoom="16"
+      :zoom="14"
       style="width:100%;height:1000px;"
       ref="map"
     >
@@ -21,8 +21,11 @@
 </template>
 
 <script>
-import {gmapApi} from 'vue2-google-maps'
+import { gmapApi } from 'vue2-google-maps'
 
+
+let directionsService;
+let directionsDisplay;
 export default {
   name: "GoogleMap",
   data() {
@@ -37,24 +40,12 @@ export default {
   },
   mounted() {
     //console.log(gmapApi)
-    // var directionsService = new gmapApi.maps.DirectionsService();
-    // var directionsDisplay = new gmapApi.maps.DirectionsRenderer();
-    // directionsDisplay.setMap(this.$refs.map.$mapObject);
-    // // get starting location for journey (props)
-    // if(this.startingCoords && this.endingCoords) {
-    //   directionsService.route({
-    //     origin: this.startingCoords,
-    //     destination: this.endingCoords,
-    //     travelMode: 'DRIVING'
-    //   }, function(response, status) {
-    //     console.log(response);
-    //     if (status === 'OK') {
-    //       directionsDisplay.setDirections(response);
-    //     } else {
-    //       window.alert('Directions request failed due to ' + status);
-    //     }
-    //   });
-    // }
+    console.log('mounted start');
+    this.$gmapApiPromiseLazy().then(() => { 
+      directionsService = new google.maps.DirectionsService();
+      directionsDisplay = new google.maps.DirectionsRenderer();
+    });
+
     // center map and create marker on starting location
     
     // create marker for user's end location
@@ -63,6 +54,29 @@ export default {
   },
 
   methods: {
+    showRoute() {
+      this.$gmapApiPromiseLazy().then(() => { 
+        directionsDisplay.setMap(this.$refs.map.$mapObject);
+        
+        // get starting location for journey (props)
+        if(this.startingCoords && this.endingCoords) {
+          const start = new google.maps.LatLng(this.startingCoords.lat, this.startingCoords.lng);
+          const end = new google.maps.LatLng(this.endingCoords.lat, this.endingCoords.lng);
+
+          directionsService.route({
+            origin: start,
+            destination: end,
+            travelMode: 'DRIVING'
+          }, function(response, status) {
+            if (status === 'OK') {
+              directionsDisplay.setDirections(response);
+            } else {
+              window.alert('Directions request failed due to ' + status);
+            }
+          });
+        }
+      });
+    },
     addMarker() {
       // Later
     }

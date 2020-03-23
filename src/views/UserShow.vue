@@ -3,10 +3,10 @@
   <div class="user-show">
     <h2>My Personal Info:</h2>
     <div>
-      <h4>{{user.first_name}}</h4>
-      <h4>{{user.last_name}}</h4>
-      <h4>{{user.phone_number}}</h4>
-      <h4>{{user.email}}</h4>  
+      <h4>First Name: {{user.first_name}}</h4>
+      <h4>Last Name: {{user.last_name}}</h4>
+      <h4>Phone Number: {{user.phone_number}}</h4>
+      <h4>Email: {{user.email}}</h4>  
     </div>
     <button v-on:click="editInfo()">Edit Info</button>
     
@@ -19,7 +19,7 @@
         @click="completeUserJourney(userJourney)"
         >
         <h4>User Journey ID: {{userJourney.journey.id}}</h4>
-        <h4>Date: {{ userJourney.journey.created_at }}</h4>
+        <h4>Date Created: {{ userJourney.journey.created_at }}</h4>
         <h4>Starting Location: {{ userJourney.journey.starting_location.address }}</h4>
         <h4>Ending Location: {{ userJourney.ending_location.address }}</h4>
         <button @click="deleteUserJourney(userJourney)">Delete User Journey!</button>
@@ -28,12 +28,14 @@
       </div>
     </div>
 
-    <h3>If the drop-down list, does not include your starting and/or ending location, please create them.</h3>
+    <h3>If the drop-down list does not include your starting and/or ending location, please create them.</h3>
     <form @submit.prevent="createLocation()">
-      Name<input type="text" v-model="locationName">
-      Address<input type="text" v-model="locationAddress">
-      Phone Number<input type="text" v-model="locationPhoneNumber">
-      <input type="submit" value="Enter">
+      Name: <input type="text" v-model="locationName">
+      Address: <input type="text" v-model="locationAddress">
+      Phone Number: <input type="text" v-model="locationPhoneNumber">
+      <div>
+        <input type="submit" value="Enter">
+      </div>
     </form>
 
     <h3>Select your starting location:</h3>

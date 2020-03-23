@@ -1,23 +1,19 @@
 <template>
   <div id="app">
-
     <h1>Select an ending location from the list below.</h1>
-    <!-- <form @submit.prevent="createLocation()">
-      Name<input type="text" v-model="locationName">
-      Address<input type="text" v-model="locationAddress">
-      Phone Number<input type="text" v-model="locationPhoneNumber">
-      <input type="submit" value="Enter">
-    </form> -->
-    
     <div>
-    <h3>Ending Destinations:</h3>
+    <h3>Ending Destination:</h3>
       <select v-model="endingLocationId">
         <option v-for="location in locations" :value="location.id">
           {{location.name}}
         </option>
       </select>
-      <button @click="showRoute()">Show Route!</button>
-      <button @click="deleteRoute()">Delete Route!</button>
+      <div>
+        <button @click="showRoute()">Show Route!</button>
+      </div>
+      <div>
+        <button @click="deleteRoute()">Delete Route!</button>
+      </div>
     </div>
 
     <google-map
@@ -53,11 +49,7 @@ export default {
     axios
       .get('/api/journeys/' + this.$route.params.journeyId)
       .then(response => {
-        //console.log(response.data.user_journey)
-        //console.log(this.$route.params.id)
-
         const data = response.data//response being stored to a variable which is being used below
-
         data.user_journey.forEach(uj => {
           if (uj.user_id.toString() === this.$route.params.id) {
             this.userJourneyId = uj.id;
@@ -69,28 +61,22 @@ export default {
           lng: parseFloat(data.starting_location.longitude)
         };
         // make call to get user journeys
-        //console.log(this.userJourneyId);
         axios
           .get("/api/user_journeys/" + this.userJourneyId)//this is to get the endcoords..see below...the endingcoords are in the userjourney model
           .then(response => {
-            //console.log(response.data);
             this.endCoords = { //ending coords will not initially be available...that is why there is an if statement in the child element (google.map.vue)
               lat: parseFloat(response.data.ending_location.latitude),
               lng: parseFloat(response.data.ending_location.longitude)
             };
             this.$refs.googleMap.showRoute();
           }).catch(error => {
-            //console.log(error);
-            //console.log('No ending location set yet.')
           });
       });
       axios
         .get('/api/locations')
         .then(response => {
-          //console.log(response)
           this.locations = response.data
         });
-
     this.currentLocation();
   },
 
@@ -102,7 +88,6 @@ export default {
                          timeout: 10000,
                          maximumAge: 0
                          };
-          //console.log('this is working!')
           navigator.geolocation.watchPosition(this.showGps, this.showError, options); 
         } else {
           this.gps_error = "Geolocation is not supported by this browser.";
@@ -110,7 +95,6 @@ export default {
       },
 
     showGps: function(position) {
-      //console.log(position)
       this.gps_error = "";
       this.currentCoords = {
         lat: parseFloat(position.coords.latitude),
@@ -132,7 +116,6 @@ export default {
           axios
             .patch("/api/user_journeys/" + this.userJourneyId, completedParams)
             .then (response => {
-              //console.log(response)
             });
           }
       }
@@ -159,24 +142,20 @@ export default {
       let endingLocationParams = {
         ending_location_id: this.endingLocationId
       };
-      //console.log(this.userJourneyId);
       axios
         .patch("/api/user_journeys/" + this.userJourneyId, endingLocationParams)
         .then(response => {
-          //console.log(response.data)
           this.endCoords = { 
             lat: parseFloat(response.data.ending_location.latitude), //the endingcoords are being populated with this call
             lng: parseFloat(response.data.ending_location.longitude)
           };
           this.$refs.googleMap.showRoute();
         }).catch(error => {
-          //console.log(error);
         });
     },
 
     deleteRoute: function() {
       this.$router.push('/users/' + this.$route.params.id)
-      //redirect back to user show page
     }
   }
 };

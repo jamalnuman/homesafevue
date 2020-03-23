@@ -63,6 +63,7 @@
 <script>
   var axios = require ('axios')
 
+
 export default{
   data: function(){
     return{
@@ -150,8 +151,8 @@ export default{
       axios
         .delete('/api/user_journeys/' + input.id)
         .then(response => {
-          //console.log(response)
-          this.$router.push("/users/" + this.$route.params.id)
+          var index = this.user.user_journeys.indexOf(input);
+          this.user.user_journeys.splice(index, 1);
         });
     }
   }

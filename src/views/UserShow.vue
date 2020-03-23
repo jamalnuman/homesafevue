@@ -18,10 +18,13 @@
         v-bind:class="{'green': userJourney.completed }"
         @click="completeUserJourney(userJourney)"
         >
+        <h4>User Journey ID: {{userJourney.journey.id}}</h4>
         <h4>Date: {{ userJourney.journey.created_at }}</h4>
         <h4>Starting Location: {{ userJourney.journey.starting_location.address }}</h4>
         <h4>Ending Location: {{ userJourney.ending_location.address }}</h4>
+        <button @click="deleteUserJourney(userJourney)">Delete User Journey!</button>
         <p>-------------------------------</p>
+
       </div>
     </div>
 
@@ -70,6 +73,7 @@ export default{
         phone_number: "",
         email: ""
       },
+      journeyID: "",
       startingLocationId: "",
       locationName: "",
       locationAddress: "",
@@ -78,10 +82,11 @@ export default{
     };
   },
   created: function() {
+    //console.log(this.$route.params.id)
     axios
       .get("/api/users/" + this.$route.params.id)
       .then(response => {
-        console.log(response.data)
+        //console.log(response.data)
         this.user = response.data;
       });
 
@@ -108,8 +113,11 @@ export default{
       axios
         .post('/api/locations', locationParams)
         .then(response => {
+          //console.log(response)
           this.locations.push(response.data);
-        })
+        }).catch(error => {
+          console.log(error);
+        });
     },
 
 
@@ -121,7 +129,7 @@ export default{
       axios
         .post('/api/journeys', journeyParams)
         .then(response => {
-          console.log(response)
+          //console.log(response)
           this.$router.push("/journeys/" + response.data.id);
         });
       
@@ -134,6 +142,16 @@ export default{
         .patch("/api/user_journeys/" + inputUserJourney.id, {completed: true})
         .then(response => {
           inputUserJourney.completed = true;
+        });
+    },
+
+    deleteUserJourney: function(input){
+      //console.log(input)
+      axios
+        .delete('/api/user_journeys/' + input.id)
+        .then(response => {
+          //console.log(response)
+          this.$router.push("/users/" + this.$route.params.id)
         });
     }
   }

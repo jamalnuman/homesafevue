@@ -13,6 +13,7 @@
       </div>
       <div>
         <button @click="deleteRoute()">Delete Route!</button>
+        <button @click="completeRoute()">Completed Route!</button>
       </div>
     </div>
 
@@ -174,7 +175,10 @@ export default {
 
     deleteRoute: function() {
       this.$router.push('/users/' + this.$route.params.id)
-    }
+    },
+    completeRoute: function() {
+      this.$router.push('/users/' + this.$route.params.id)
+    },
   }
 };
 </script>

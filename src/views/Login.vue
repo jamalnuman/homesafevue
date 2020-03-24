@@ -1,8 +1,13 @@
 <template>
   <div class="login">
+    <section class="welcome_area gradient-background-overlay" style="background-image: url('https://www.povertylaw.org/wp-content/uploads/2019/12/keys-900x558.jpg');" id="home">
+        <div class="container h-100">
+        </div>
+      </section>
     <div class="container">
       <form v-on:submit.prevent="submit()">
-        <h1>Login</h1>
+        <h3>With security and technology improvments, HomeSafe is dedicated to get you to your destination safely</h3>
+        <h5>Login</h5>
         <ul>
           <li class="text-danger" v-for="error in errors">{{ error }}</li>
         </ul>
@@ -14,11 +19,17 @@
           <label>Password:</label>
           <input type="password" class="form-control" v-model="password">
         </div>
-        <input type="submit" class="btn btn-primary" value="Submit">
+        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">
       </form>
     </div>
   </div>
 </template>
+
+<style scoped>
+  h3, h5 {
+    text-align: center;
+  }
+</style>
 
 <script>
 import axios from "axios";

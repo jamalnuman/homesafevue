@@ -1,64 +1,119 @@
 <template>
-
   <div class="user-show">
-    <h2>My Personal Info:</h2>
-    <div>
-      <h4>First Name: {{user.first_name}}</h4>
-      <h4>Last Name: {{user.last_name}}</h4>
-      <h4>Phone Number: {{user.phone_number}}</h4>
-      <h4>Email: {{user.email}}</h4>  
+    <section class="welcome_area gradient-background-overlay" style="background-image: url('https://georgianewsdaily.com/wp-content/uploads/2018/04/2781692552_f380b09e6f_z.jpg');" id="home">
+      <div class="container h-100">
+      </div>
+    </section>
+    <div id="info" class="col-sm-4 mb-2">
+      <div class="card">
+        <div class="card-body text-info">
+        <h5 class="card-title">First Name: {{user.first_name}}</h5>
+        <h5 class="card-title">Last Name: {{user.last_name}}</h5>
+        <h5 class="card-title">Phone Number: {{user.phone_number}}</h5>
+        <h5 class="card-title">Email: {{user.email}}</h5>  
+        </div>
+      <button class="btn btn-outline-danger" v-on:click="editInfo()">Edit Info</button>
+      </div>
     </div>
-    <button v-on:click="editInfo()">Edit Info</button>
-    
-
-    <h2>My Journeys:</h2>
-    <div>
-      <div 
-        v-for="userJourney in user.user_journeys" 
-        v-bind:class="{'green': userJourney.completed }"
-        @click="completeUserJourney(userJourney)"
-        >
-        <h4>User Journey ID: {{userJourney.journey.id}}</h4>
-        <h4>Date Created: {{ userJourney.journey.created_at }}</h4>
-        <h4>Starting Location: {{ userJourney.journey.starting_location.address }}</h4>
-        <h4>Ending Location: {{ userJourney.ending_location.address }}</h4>
-        <button @click="deleteUserJourney(userJourney)">Delete User Journey!</button>
-        <p>-------------------------------</p>
-
+    <br>
+    <div><h2>My Previous Journeys</h2></div>
+    <br>
+    <div class="row">
+      <div class="col-sm-4 mb-2" 
+       v-for="userJourney in user.user_journeys"
+       v-bind:class="{'green': userJourney.completed }"
+       @click="completeUserJourney(userJourney)"
+       >
+        <div class="card">
+          <div class="card-body text-info">
+            <h5 class="card-title">User Journey ID: {{userJourney.journey.id}}</h5>
+            <h5 class="card-title">Date Created: {{ userJourney.journey.created_at }}</h5>
+            <h5 class="card-title">Starting Location: {{ userJourney.journey.starting_location.address }}</h5>
+            <h5 class="card-title">Ending Location: {{ userJourney.ending_location.address }}</h5>
+            <button class="btn btn-outline-danger" @click="deleteUserJourney(userJourney)">Delete User Journey!</button>
+          </div>
+        </div>
       </div>
     </div>
 
-    <h3>If the drop-down list does not include your starting and/or ending location, please create them.</h3>
-    <form @submit.prevent="createLocation()">
-      Name: <input type="text" v-model="locationName">
-      Address: <input type="text" v-model="locationAddress">
-      Phone Number: <input type="text" v-model="locationPhoneNumber">
-      <div>
-        <input type="submit" value="Enter">
+    <br>
+    <br>
+
+    <h5 id="list">If the drop-down list does NOT include your starting and/or ending location, please create them.</h5>
+    <div class="container selectDiv1">
+      <form @submit.prevent="createLocation()">
+        <div class="form-group">
+          <label for="formGroupExampleInput">Name</label>
+          <input v-model="locationName" type="text" class="form-control" id="formGroupExampleInput" placeholder="Name of the location">
+          <!-- <input type="text" v-model="locationName"> -->
+          <!-- Address: <input type="text" v-model="locationAddress"> -->
+          <label for="formGroupExampleInput2">Address</label>
+          <input v-model="locationAddress" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Example: 4845 N Kimball Ave Chicago Il">
+          <label for="formGroupExampleInput3">Name</label>
+          <input v-model="locationPhoneNumber" type="text" class="form-control" id="formGroupExampleInput3" placeholder="If possible, phone number of location">
+          <!-- Phone Number: <input type="text" v-model="locationPhoneNumber"> -->
+        </div>
+        <div>
+          <input class="btn btn-outline-success btn-lg btn-block" type="submit" value="Enter">
+        </div>
+      </form>
+    </div>
+      <br>
+      <br>
+   
+   
+
+    <h5 id="h5">Select your starting location:</h5>
+    <div class=" container selectDiv2">
+      <label>Starting Locations</label>
+      <div> 
+        <select v-model="startingLocationId">
+          <option v-for="location in locations" :value="location.id">
+            {{location.name}}
+          </option>
+        </select>
       </div>
-    </form>
-
-    <h3>Select your starting location:</h3>
     <div>
-      <label>Starting Locations: </label>
-      <select v-model="startingLocationId">
-        <option v-for="location in locations" :value="location.id">
-          {{location.name}}
-        </option>
-      </select>
+      <button id="lastButton" class="btn btn-outline-success btn-lg btn-block" v-on:click="createJourney()">Create Journey</button>
+    </div>
     </div>
 
-    <div>
-      <button v-on:click="createJourney()">Create Journey</button>
-    </div>
-
+    <br>
   </div>
   
 </template>
 
-<style>
+<style scoped>
+#lastButton{
+  margin-top: 5px;
+}
+.selectDiv1{
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+.selectDiv2{
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+h5, h2{
+  color: grey;
+}
 .green {
   color: green;
+}
+#info{
+  margin: auto;
+}
+h2{
+  text-align: center;
+}
+#h5 {
+  text-align: center;
+}
+#list {
+  text-align: center;
 }
 </style>
 

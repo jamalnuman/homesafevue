@@ -42,7 +42,8 @@ export default {
       endingLocationId: "", 
       locations: [],
       userJourneyId: "",
-      gps_error: ""
+      gps_error: "",
+      journeyCompleted: false
     };
   },
   mounted: function() {
@@ -64,12 +65,17 @@ export default {
         axios
           .get("/api/user_journeys/" + this.userJourneyId)//this is to get the endcoords..see below...the endingcoords are in the userjourney model
           .then(response => {
-            this.endCoords = { //ending coords will not initially be available...that is why there is an if statement in the child element (google.map.vue)
-              lat: parseFloat(response.data.ending_location.latitude),
-              lng: parseFloat(response.data.ending_location.longitude)
-            };
-            this.$refs.googleMap.showRoute();
+            if(response.data.ending_location.latitude) {
+              console.log(response.data.ending_location.latitude);
+              this.endCoords = { //ending coords will not initially be available...that is why there is an if statement in the child element (google.map.vue)
+                lat: parseFloat(response.data.ending_location.latitude),
+                lng: parseFloat(response.data.ending_location.longitude)
+              };
+              this.$refs.googleMap.showRoute();
+            }
+            
           }).catch(error => {
+            console.log(error);
           });
       });
       axios
@@ -101,6 +107,12 @@ export default {
         lng: parseFloat(position.coords.longitude)
       }
 
+      // this.currentCoords = {
+      //   lat: 41.89,
+      //   lng: -87.63
+      //   //latitude: 0.418923e2, longitude: -0.8763443e2
+      // }
+
       let offset = 0.150;
 
       if (this.currentCoords && this.endCoords) {
@@ -112,12 +124,17 @@ export default {
           let completedParams = {
             completed: true
           }
-
-          axios
-            .patch("/api/user_journeys/" + this.userJourneyId, completedParams)
-            .then (response => {
-            });
+          if (!this.journeyCompleted) {
+            axios
+              .patch("/api/user_journeys/" + this.userJourneyId, completedParams)
+              .then (response => {
+                console.log(response);
+                this.journeyCompleted = true;
+                alert('Trip has completed!')
+              });
+            }
           }
+          
       }
     },
 
@@ -151,6 +168,7 @@ export default {
           };
           this.$refs.googleMap.showRoute();
         }).catch(error => {
+          console.log(error);
         });
     },
 

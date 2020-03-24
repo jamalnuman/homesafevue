@@ -59,10 +59,14 @@ export default {
         directionsDisplay.setMap(this.$refs.map.$mapObject);
         
         // get starting location for journey (props)
+        console.log(this.startingCoords);
+        console.log(this.endingCoords);
+
         if(this.startingCoords && this.endingCoords) {
           const start = new google.maps.LatLng(this.startingCoords.lat, this.startingCoords.lng);
           const end = new google.maps.LatLng(this.endingCoords.lat, this.endingCoords.lng);
-
+          console.log(this.startingCoords);
+          console.log(this.endingCoords);
           directionsService.route({
             origin: start,
             destination: end,

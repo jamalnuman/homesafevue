@@ -1,19 +1,20 @@
 <template>
   <div id="app">
-    <h1>Select an ending location from the list below.</h1>
-    <div>
-    <h3>Ending Destination:</h3>
-      <select v-model="endingLocationId">
-        <option v-for="location in locations" :value="location.id">
-          {{location.name}}
-        </option>
-      </select>
+    <div id="route" class="container">
+      <h3>Select an ending location from the list below</h3>
       <div>
-        <button @click="showRoute()">Show Route!</button>
-      </div>
-      <div>
-        <button @click="deleteRoute()">Delete Route!</button>
-        <button @click="completeRoute()">Completed Route!</button>
+        <select v-model="endingLocationId">
+          <option v-for="location in locations" :value="location.id">
+            {{location.name}}
+          </option>
+        </select>
+        <div>
+          <button id="showroute" class="btn btn-outline-success btn-lg btn-block" @click="showRoute()">Show Route!</button>
+        </div>
+        <div>
+          <button id="delete" class="btn btn-outline-success btn-lg btn-block" @click="deleteRoute()">Delete Route!</button>
+          <button class="btn btn-outline-success btn-lg btn-block" @click="completeRoute()">Completed Route!</button>
+        </div>
       </div>
     </div>
 
@@ -25,6 +26,21 @@
     /> <!-- this is the link to the google maps component..we are binding (linking) the startCoords model and it's value to the google maps component to be used on the map  -->
   </div>
 </template>
+
+<style scoped>
+  #showroute {
+    margin-top: 5px;
+  }
+  #delete {
+    margin-top: 5px;
+  }
+  #route {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-bottom: 5px;
+  }
+</style>
 
 <script>
 import axios from 'axios';

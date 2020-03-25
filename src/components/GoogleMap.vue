@@ -1,9 +1,10 @@
 <template>
   <div>
     <gmap-map
+      id="gmap"
       :center="startingCoords"
-      :zoom="14"
-      style="width:100%;height:1000px;"
+      :zoom="13"
+      style="width:85%;height:700px;"
       ref="map"
     >
       <gmap-marker
@@ -19,6 +20,13 @@
     </gmap-map>
   </div>
 </template>
+
+<style scoped>
+  #gmap {
+    margin-left: 110px;
+    margin-bottom: 5px;
+  }
+</style>
 
 <script>
 import { gmapApi } from 'vue2-google-maps'

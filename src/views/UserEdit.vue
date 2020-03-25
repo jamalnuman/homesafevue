@@ -1,34 +1,53 @@
 <template>
   <div class="user-edit">
+
+    <section class="welcome_area gradient-background-overlay" style="background-image: url('https://www.gullands.com/upload/images/image_5491a41f87a78.jpg');" id="home">
+        <div class="container h-100">
+        </div>
+    </section>
+    <div class="container">
+      <h3>Edit your personal information</h3>
+
+
     <form v-on:submit.prevent="updateInfo()">
 
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
-      <div>
-        <label>First Name:</label>
-        <input type="text" v-model="user.first_name">
+      <div class="form-group">
+        <label>First Name</label>
+        <input class="form-control" type="text" v-model="user.first_name">
       </div>
       <div>
-        <label>Last Name:</label>
-        <input type="text" v-model="user.last_name">
+        <label>Last Name</label>
+        <input class="form-control" type="text" v-model="user.last_name">
       </div>
       <div>
-        <label>Phone Number:</label>
-        <input type="text" v-model="user.phone_number">
+        <label>Phone Number</label>
+        <input class="form-control" type="text" v-model="user.phone_number">
       </div>
       <div>
-        <label>Email:</label>
-        <input type="text" v-model="user.email">
+        <label>Email</label>
+        <input class="form-control" type="text" v-model="user.email">
       </div>
-      <input type="submit" value="Update Info">
+      <input id="input" class="btn btn-outline-primary btn-lg btn-block" type="submit" value="Update Info">
 
     </form>
   </div>
+</div>
   
 </template>
 
-<style></style>
+<style>
+  #input{
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  h3{
+    color: grey;
+    text-align: center;
+  }
+</style>
 
 <script>
   var axios = require("axios")

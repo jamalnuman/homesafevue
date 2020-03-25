@@ -19,7 +19,7 @@
           <label>Password:</label>
           <input type="password" class="form-control" v-model="password">
         </div>
-        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Submit">
+        <input type="submit" class="btn btn-outline-primary btn-lg btn-block" value="Submit">
       </form>
     </div>
   </div>

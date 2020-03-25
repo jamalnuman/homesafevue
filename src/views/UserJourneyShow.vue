@@ -44,7 +44,7 @@ export default {
       locations: [],
       userJourneyId: "",
       gps_error: "",
-      journeyCompleted: false
+      journeyCompleted: true
     };
   },
   mounted: function() {
@@ -67,6 +67,7 @@ export default {
           .get("/api/user_journeys/" + this.userJourneyId)//this is to get the endcoords..see below...the endingcoords are in the userjourney model
           .then(response => {
             if(response.data.ending_location.latitude) {
+              this.journeyCompleted = response.data.completed;
               console.log(response.data.ending_location.latitude);
               this.endCoords = { //ending coords will not initially be available...that is why there is an if statement in the child element (google.map.vue)
                 lat: parseFloat(response.data.ending_location.latitude),

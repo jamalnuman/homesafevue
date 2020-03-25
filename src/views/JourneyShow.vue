@@ -1,40 +1,67 @@
 <template>
   <div class="journey-show">
+    <section class="welcome_area gradient-background-overlay" style="background-image: url('https://paragon-training.com/images/products/680/20160315180525.jpg');" id="home">
+        <div class="container h-100">
+        </div>
+    </section>
+    <div class="container">
+      
+      <h3>You're going to {{journey.starting_location.name}}</h3>
+      <h3>The address is {{journey.starting_location.address}}</h3>
 
-    <h3>You are going to {{journey.starting_location.name}}</h3>
-    <h3>The address you are going to is {{journey.starting_location.address}}</h3>
+      <h3 >The following are those who will join you</h3>
+      <ul>
+        <li v-for="user in journey.users"><h5>{{user.first_name + " " + user.last_name}}</h5></li>
+      </ul> 
 
-    <h3 >These are the people that will join you:</h3>
-    <ul>
-      <li v-for="user in journey.users">{{user.first_name + " " + user.last_name}}</li>
-    </ul> 
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
+      <div id="box"> 
+        <h3>Select from the following users to join you</h3>
+          <select id="option" v-model="userId">
+            <option  v-for="user in usersMap" :value="user.id">
+              {{ user.first_name + " " + user.last_name }}  
+            </option>
+          </select>
+      
+        <div>
+          <button id="add" class="btn btn-outline-success btn-lg btn-block" @click="addUser()">Add User</button>
+          <button class="btn btn-outline-success btn-lg btn-block" @click="deleteUser()">Delete User</button>
+        </div>
 
-    <ul>
-      <li class="text-danger" v-for="error in errors">{{ error }}</li>
-    </ul>
-
-    <h3>Select from the following users to join you:</h3>
-      <select v-model="userId">
-        <option v-for="user in usersMap" :value="user.id">
-          {{ user.first_name + " " + user.last_name }}  
-        </option>
-      </select>
-    <div>
-      <button @click="addUser()">Add User</button>
-      <button @click="deleteUser()">Delete User</button>
-    </div>
-
-    <div>
-      <button @click="createMap()">Go!</button>
+        <div>
+          <button id="go" class="btn btn-outline-success btn-lg btn-block" @click="createMap()">Go!</button>
+        </div>
+      </div>
     </div>
 
   </div>
   
 </template>
 
-<style>
+<style scoped>
+  #option {
+    border: 10px solid lightgrey;
+    width: 100;
+    height: 100;
+  }
+  #add {
+    margin-top: 5px;
+  }
+  #go {
+    margin-top: 5px;
+  }
   ul {
     list-style-type: none;
+    text-align: center;
+  }
+  #box{
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-bottom: 5px;
+
   }
 </style>
 

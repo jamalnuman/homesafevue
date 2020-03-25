@@ -22,7 +22,6 @@
       <div class="col-sm-4 mb-2" 
        v-for="userJourney in user.user_journeys"
        v-bind:class="{'green': userJourney.completed }"
-       @click="completeUserJourney(userJourney)"
        >
         <div class="card">
           <div class="card-body text-info">
@@ -194,14 +193,14 @@ export default{
     },
 
 
-    completeUserJourney: function(inputUserJourney) {
-      axios
-        // console.log(inputUserJourney)
-        .patch("/api/user_journeys/" + inputUserJourney.id, {completed: true})
-        .then(response => {
-          inputUserJourney.completed = true;
-        });
-    },
+    // completeUserJourney: function(inputUserJourney) {
+    //   axios
+    //     // console.log(inputUserJourney)
+    //     .patch("/api/user_journeys/" + inputUserJourney.id, {completed: true})
+    //     .then(response => {
+    //       inputUserJourney.completed = true;
+    //     });
+    // },
 
     deleteUserJourney: function(input){
       //console.log(input)

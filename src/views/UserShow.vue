@@ -43,13 +43,13 @@
       <form @submit.prevent="createLocation()">
         <div class="form-group">
           <label for="formGroupExampleInput">Name</label>
-          <input v-model="locationName" type="text" class="form-control" id="formGroupExampleInput" placeholder="Name of the location">
+          <input v-model="locationName" type="text" class="form-control" id="formGroupExampleInput">
           <!-- <input type="text" v-model="locationName"> -->
           <!-- Address: <input type="text" v-model="locationAddress"> -->
           <label for="formGroupExampleInput2">Address</label>
           <input v-model="locationAddress" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Example: 4845 N Kimball Ave Chicago Il">
-          <label for="formGroupExampleInput3">Name</label>
-          <input v-model="locationPhoneNumber" type="text" class="form-control" id="formGroupExampleInput3" placeholder="If possible, phone number of location">
+          <label for="formGroupExampleInput3">Phone Number</label>
+          <input v-model="locationPhoneNumber" type="text" class="form-control" id="formGroupExampleInput3" placeholder="If possible: 555 555 5555">
           <!-- Phone Number: <input type="text" v-model="locationPhoneNumber"> -->
         </div>
         <div>

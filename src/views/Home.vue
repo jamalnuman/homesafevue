@@ -18,35 +18,39 @@
             </div>
         </div>
     </div>
-    <!-- Single gallery Item -->
-    <div class="home col-12 col-sm-6 col-md-3 single_gallery_item">
-        <div class="single_gallery_content">
-            <img src="https://pngriver.com/wp-content/uploads/2018/04/Download-Sign-Up-Button-PNG-Transparent-Picture.png" alt="">
-            <!-- Hover Effects -->
-            <div class="hover_overlay">
-                <div class="gallery_info">
-                    <router-link to="/signup" class="btn light-btn preview-btn"> Signup </router-link>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="row">
+      <!-- Single gallery Item -->
+      <div class="home col-6 col-sm-6 col-md-3 offset-md-3 single_gallery_item">
+          <div class="single_gallery_content">
+              <img src="https://cdn3.iconfinder.com/data/icons/arrowico/32/Side-Login-512.png" alt="">
+              <!-- Hover Effects -->
+              <div class="hover_overlay">
+                  <div class="gallery_info">
+                      <router-link to="/signup" class="btn light-btn preview-btn"> Signup </router-link>
+                  </div>
+              </div>
+          </div>
+      </div>
 
-    <!-- Single gallery Item -->
-    <div class="home col-12 col-sm-6 col-md-3 single_gallery_item">
-        <div class="single_gallery_content">
-            <img src="https://pngimage.net/wp-content/uploads/2018/06/sign-in-png-2.png" alt="">
-            <!-- Hover Effects -->
-            <div class="hover_overlay">
-                <div class="gallery_info">
-                    <router-link to="/login" class="btn light-btn preview-btn"> Login </router-link>
-                </div>
-            </div>
-        </div>
+      <!-- Single gallery Item -->
+      <div class="home col-6 col-sm-6 col-md-3 single_gallery_item">
+          <div class="single_gallery_content">
+              <img src="https://cdn1.iconfinder.com/data/icons/small-black-v5/512/account_arrow_enter_in_log_login_signin-512.png" alt="">
+              <!-- Hover Effects -->
+              <div class="hover_overlay">
+                  <div class="gallery_info">
+                      <router-link to="/login" class="btn light-btn preview-btn"> Login </router-link>
+                  </div>
+              </div>
+          </div>
+      </div>
+      
     </div>
   </div>
 </template>
 
 <style scoped>
+  
 </style>
 
 <script>

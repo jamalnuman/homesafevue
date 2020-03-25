@@ -7,25 +7,28 @@
     <div class="container">
       <form v-on:submit.prevent="submit()">
         <h3>With security and technology improvments, HomeSafe is dedicated to get you to your destination safely</h3>
-        <h5>Login</h5>
+        <!-- <h5>Sign in</h5> -->
         <ul>
           <li class="text-danger" v-for="error in errors">{{ error }}</li>
         </ul>
         <div class="form-group">
-          <label>Email:</label>
+          <label>Email</label>
           <input type="email" class="form-control" v-model="email">
         </div>
         <div class="form-group">
-          <label>Password:</label>
+          <label>Password</label>
           <input type="password" class="form-control" v-model="password">
         </div>
-        <input type="submit" class="btn btn-outline-primary btn-lg btn-block" value="Submit">
+        <input id="loginButton" type="submit" class="btn btn-outline-primary btn-lg btn-block" value="Submit">
       </form>
     </div>
   </div>
 </template>
 
 <style scoped>
+  #loginButton {
+    margin-bottom: 10px;
+  }
   h3, h5 {
     text-align: center;
   }

@@ -5,20 +5,21 @@
         </div>
     </section>
     <div class="container">
-      
-      <h3>You're going to {{journey.starting_location.name}}</h3>
-      <h3>The address is {{journey.starting_location.address}}</h3>
+      <div id="box1">
+        <h3>You're going to {{journey.starting_location.name}}</h3>
+        <h3>The address is {{journey.starting_location.address}}</h3>
 
-      <h3 >The following are those who will join you</h3>
-      <ul>
-        <li v-for="user in journey.users"><h5>{{user.first_name + " " + user.last_name}}</h5></li>
-      </ul> 
+        <h3 >The following are those who will join you</h3>
+        <ul>
+          <li v-for="user in journey.users"><h5>{{user.first_name + " " + user.last_name}}</h5></li>
+        </ul> 
+      </div>
 
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
-      <div id="box"> 
-        <h3>Select from the following users to join you</h3>
+        <h5>Select from the following users to join you</h5>
+      <div id="box" align="center"> 
           <select id="option" v-model="userId">
             <option  v-for="user in usersMap" :value="user.id">
               {{ user.first_name + " " + user.last_name }}  
@@ -41,10 +42,13 @@
 </template>
 
 <style scoped>
-  #option {
-    border: 10px solid lightgrey;
-    width: 100;
-    height: 100;
+  h5 {
+    color: grey;
+    text-align: center;
+  }
+  select {
+    width: 350px;
+    margin: 10px;
   }
   #add {
     margin-top: 5px;
@@ -56,11 +60,16 @@
     list-style-type: none;
     text-align: center;
   }
+  #box1 {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
   #box{
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
   }
 </style>
 

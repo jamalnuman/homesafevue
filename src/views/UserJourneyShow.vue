@@ -2,18 +2,18 @@
   <div id="app">
     <div id="route" class="container">
       <h3>Select an ending location from the list below</h3>
-      <div>
+      <div align="center">
         <select v-model="endingLocationId">
           <option v-for="location in locations" :value="location.id">
             {{location.name}}
           </option>
         </select>
         <div>
-          <button id="showroute" class="btn btn-outline-success btn-lg btn-block" @click="showRoute()">Show Route!</button>
+          <button id="showroute" class="btn btn-outline-success btn-lg btn-block" @click="showRoute()">Display Route!</button>
         </div>
         <div>
-          <button id="delete" class="btn btn-outline-success btn-lg btn-block" @click="deleteRoute()">Delete Route!</button>
-          <button class="btn btn-outline-success btn-lg btn-block" @click="completeRoute()">Completed Route!</button>
+          <button id="delete" class="btn btn-outline-success btn-lg btn-block" @click="deleteRoute()">Cancel Route!</button>
+          <!-- <button class="btn btn-outline-success btn-lg btn-block" @click="completeRoute()">Completed Route!</button> -->
         </div>
       </div>
     </div>
@@ -28,6 +28,10 @@
 </template>
 
 <style scoped>
+  select {
+    width: 350px;
+    margin: 10px;
+  }
   #showroute {
     margin-top: 5px;
   }
@@ -193,9 +197,9 @@ export default {
     deleteRoute: function() {
       this.$router.push('/users/' + this.$route.params.id)
     },
-    completeRoute: function() {
-      this.$router.push('/users/' + this.$route.params.id)
-    },
+    // completeRoute: function() {
+    //   this.$router.push('/users/' + this.$route.params.id)
+    // },
   }
 };
 </script>

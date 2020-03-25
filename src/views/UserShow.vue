@@ -64,8 +64,8 @@
 
     <h5 id="h5">Select your starting location:</h5>
     <div class=" container selectDiv2">
-      <label>Starting Locations</label>
-      <div> 
+      <!-- <label id="startingLabel">Starting Locations</label> -->
+      <div align="center"> 
         <select v-model="startingLocationId">
           <option v-for="location in locations" :value="location.id">
             {{location.name}}
@@ -83,6 +83,13 @@
 </template>
 
 <style scoped>
+/*#startingLabel {
+  padding-left: 470px;
+}*/
+select {
+  width: 350px;
+  margin: 10px;
+    }
 #lastButton{
   margin-top: 5px;
 }

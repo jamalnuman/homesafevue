@@ -1,4 +1,4 @@
-<div>
+<!-- <div> -->
 
   <!-- the following are examples of event modifiers:
    <div id="canvas" v-on:mousemove.capture="updateXY">{{ x }} , {{ y }}</div>
@@ -1027,4 +1027,4 @@ export default {
 
 
 
-</div>
+<!-- </div> -->

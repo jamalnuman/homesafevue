@@ -114,7 +114,7 @@ export default {
 
   methods: {
     deleteUser: function() {
-      const removeId = this.userId //meaning the user choosed from the dropdown menu..the userid of the choosen user is stored in the userId model 
+      const removeId = this.userId //meaning the user choosen from the dropdown menu..the userid of the choosen user is stored in the userId model 
       const remainingUsers = this.journey.users.filter(function (user) {
         return user.id != removeId; //filter will return a new hash/array of those elements that passed the logic, similar to the select method in Ruby. 
       })

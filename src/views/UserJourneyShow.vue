@@ -4,7 +4,7 @@
       <h3>Select an ending location from the list below</h3>
       <div align="center">
         <select v-model="endingLocationId">
-          <option v-for="location in locations" :value="location.id">
+          <option v-for="location in locations" :value="location.id"> <!-- we are binding the location.id to the value tag in this options element -->
             {{location.name}}
           </option>
         </select>
@@ -12,18 +12,20 @@
           <button id="showroute" class="btn btn-outline-success btn-lg btn-block" @click="showRoute()">Display Route!</button>
         </div>
         <div>
-          <button id="delete" class="btn btn-outline-success btn-lg btn-block" @click="deleteRoute()">Cancel Route!</button>
+          <button id="delete" class="btn btn-outline-success btn-lg btn-block" @click="deleteRoute()">Cancel Route!</button> <!-- the trigger for the deleteRoute() can be a click, double click, mouse over etc -->
           <!-- <button class="btn btn-outline-success btn-lg btn-block" @click="completeRoute()">Completed Route!</button> -->
         </div>
       </div>
     </div>
+    
 
     <google-map
-      :startingCoords="this.startCoords"
+      :startingCoords="this.startCoords" 
       :endingCoords="this.endCoords"
       :currentCoords="this.currentCoords"
       ref="googleMap"
-    /> <!-- this is the link to the google maps component..we are binding (linking) the startCoords model and it's value to the google maps component to be used on the map  -->
+    /> <!-- this is the link to the google maps component..we are binding (linking) the startCoords model and it's value to the google maps component to be used on the map  
+    binding this.startCoords to the startingCoords-->
   </div>
 </template>
 

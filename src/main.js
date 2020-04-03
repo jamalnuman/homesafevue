@@ -26,7 +26,7 @@ if (jwt) {
 
 Vue.config.productionTip = false
 
-new Vue({
+new Vue({ //this is the instance that controls the entire application..this is connected to App.vue with the id of 'app' below. all other views are connected to App.vue via the <router-link>
   router,
   render: h => h(App)
 }).$mount('#app')

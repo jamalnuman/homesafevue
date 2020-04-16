@@ -998,17 +998,301 @@ export default {
 -->
 
 <!-- Lesson 32 - HTTP Requests
+     Lesson 33 - Making GET Requests
 
-
-
-
-
-
+-when installing in the terminal, use '--' to save it to the dependencies. 
+-to use a plugin, after downloading it, in the main.js file type Vue.use(VueResource)
+-remember data.body.slice(0,10) makes a copy of the first 10 elements in the array 
  -->
 
+<!-- Lesson 34 - Custom Directives
+Directives: v-if, v-on, v-for..these are added to html elements as attributes. 
+
+MAIN.JS
+
+import Vue from 'vue'
+import VueResource from 'vue-resource'
+import App from './App.vue'
+
+// Use vue-resource package
+Vue.use(VueResource);
+
+// Creating a Custom directives..the second parameter is the object...'bind' is a life cycle hook and takes three parameters...'el' refers to the html element that the directive is attached to, in this case <h2>...binding is the property after the equal sign..this is called "value"..seen line 1030, example: v-rainbow="XXXXX"..so the "XXXX" are 'value'
+
+GLOBALLY CREATING A FILTER. 
+
+Vue.directive('rainbow', { 
+  bind(el, binding, vnode){
+    el.style.color = "#" + Math.random().toString(16).slice(2, 8);
+    .0983749506984 is turned into a string..then the 6 digit number is taken, which is added to the "#"..which is also a string...that then equals a hash sequence color. 
+  }
+});
+
+Vue.directive('theme', {
+  bind(el, binding, vnode){
+    if (binding.value == 'wide'){
+      el.style.maxWidth = "1260px";
+    } else if (binding.value = 'narrow'){
+      el.style.maxWidth = "560px";
+    }
+    if(binding.arg == 'column'){
+      el.style.background = '#ddd';
+      el.style.padding = '20px';
+    }
+  }
+});
+
+new Vue({
+  el: '#app',
+  render: h => h(App)
+})
+
+SHOWBLOGS.VUE
+v-theme and v-rainbow are directives that are created. they did not come with VUE...IMPORTANT TO NOTE THAT 'NARROW' OR 'WIDE' (THE VALUE FOR LINE 1051) IS IN SINGLE QUOTATIONS..IF NOT, THEN VUE THINKS IT IS A PROPERTY FROM THE DATA HASH METHOD. THE SINGLE QUOTES TELLS VUE IT IS A STRING
+
+after the (theme:) on line 1053...that is called an argument..custom arguments can be created also. see line 1035. 
+
+<template>
+  <div v-theme:column="'narrow'" id="show-blogs">
+    <h1>All Blog Articles</h1>
+    <div v-for="blog in blogs" class="single-blog">
+      <h2 v-rainbow>{{ blog.title }}</h2>
+      <article>{{ blog.body }}</article>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      blogs: []
+    }
+  },
+  methods: {
+  },
+  created() {
+    this.$http.get('http://jsonplaceholder.typicode.com/posts').then(function(data){
+      this.blogs = data.body.slice(0,10);
+    });
+  }
+}
+</script>
+-->
+
+<!-- Lesson 35 - Filters
+
+can be used to changed the data that is output to the browser. it is doesnt change the data that is stored in the original element, like the data in an array..only changes the data that is output to the screen. 
+
+MAIN.JS
+
+import Vue from 'vue'
+import VueResource from 'vue-resource'
+import App from './App.vue'
+
+// Use vue-resource package
+Vue.use(VueResource);
+
+// Filters
+THE VALUE IS THE DATA THAT THE FILTER IS BEING CALLED UPON..IN THIS CASE, BLOG.TITLE. 
+
+Vue.filter('to-uppercase', function(value){
+  return value.toUpperCase();
+});
+
+Vue.filter('snippet', function(value){
+  return value.slice(0, 100) + "..."
+});
+
+new Vue({
+  el: '#app',
+  render: h => h(App)
+})
+
+SHOWBLOGS.VUE
+
+the filter is being called on line 1112. 
+
+<template>
+  <div id="show-blogs">
+    <h1>All Blog Articles</h1>
+    <div v-for="blog in blogs" class="single-blog">
+      <h2>{{ blog.title | to-uppercase }}</h2>
+      <article>{{ blog.body | snippet }}</article>
+    </div>
+  </div>
+</template>
+
+<script>
+-->
+
+<!-- Lesson 36 - Custom Search Box
+
+<template>
+  <div id="show-blogs">
+    <h1>All Blog Articles</h1>
+    <input type="text" v-model="search" placeholder="search blogs" />
+    <div v-for="blog in filteredBlogs" class="single-blog">
+      <h2>{{ blog.title | to-uppercase }}</h2>
+      <article>{{ blog.body }}</article>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      blogs: [],
+      search: ''
+  }
+},
+methods: {
+},
+created() {
+  this.$http.get('http://jsonplaceholder.typicode.com/posts').then(function(data){
+      this.blogs = data.body.slice(0,10);
+  });
+},
+computed: {
+  filteredBlogs: function(){
+      return this.blogs.filter((blog) => {
+        return blog.title.match(this.search);
+      });
+    }
+  }
+}
+</script>
+ -->
+
+<!-- Lesson 37 Register Globally vs Locally
+
+To register a filter or directive globally, they must be in the main.js file and type Vue.filter or Vue.directive. they can be used in any component now. 
+
+To register a filter or directive locally, it should be in the file and not the main.js file. View the blogs file below to see the syntax for local registration. 
 
 
+MAIN.JS
 
+import Vue from 'vue'
+import VueResource from 'vue-resource'
+import App from './App.vue'
+
+// Use vue-resource package
+Vue.use(VueResource);
+
+// Filters
+/*
+Vue.filter('to-uppercase', function(value){
+  return value.toUpperCase();
+}); */
+
+new Vue({
+  el: '#app',
+  render: h => h(App)
+});
+
+
+SHOWBLOGS.VUE
+
+<template>
+  <div id="show-blogs">
+    <h1>All Blog Articles</h1>
+    <input type="text" v-model="search" placeholder="search blogs" />
+    <div v-for="blog in filteredBlogs" class="single-blog">
+      <h2 v-rainbow>{{ blog.title | toUppercase }}</h2>
+      <article>{{ blog.body }}</article>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      blogs: [],
+      search: ''
+    }
+  },
+  methods: {
+  },
+  created() {
+    this.$http.get('http://jsonplaceholder.typicode.com/posts').then(function(data){
+      this.blogs = data.body.slice(0,10);
+    });
+  },
+  computed: {
+    filteredBlogs: function(){
+      return this.blogs.filter((blog) => {
+        return blog.title.match(this.search);
+      });
+    }
+  },
+  filters: {
+    /*'to-uppercase': function(value){
+      return value.toUpperCase();
+    }*/
+    toUppercase(value){
+      return value.toUpperCase();
+    }
+  },
+  directives: {
+    'rainbow' :{
+      bind(el, binding, vnode){
+        el.style.color = "#" + Math.random().toString(16).slice(2, 8);
+      }
+    }
+  }
+}
+</script>
+ -->
+
+<!-- Lesson 38 - Mixins
+
+  Similar to creating a component and reusing the component over and over again, a mixin is a chunk of code that can be re-used over and over again. 
+
+seachMixin.js
+
+Created the mixin and IMPORTANT to make sure it is EXPORT DEFAULT cause this mixin will be imported into a component. 
+
+export default {
+  computed: {
+    filteredBlogs: function(){
+      return this.blogs.filter((blog) => {
+        return blog.title.match(this.search);
+      });
+    }
+  }
+};
+
+LISTBLOG.VUE 
+
+The mixin will be imported into this component. The mixin also needs to be registered ..line 1292. 
+
+<template>
+  <div id="show-blogs">
+    <h1>List Blog Titles</h1>
+    <input type="text" v-model="search" placeholder="search blogs" />
+    <div v-for="blog in filteredBlogs" class="single-blog">
+      <h2>{{ blog.title }}</h2>
+    </div>
+  </div>
+</template>
+
+<script>
+import searchMixin from '../mixins/searchMixin';
+
+export default {
+  data () {
+    return {
+      blogs: [],
+      search: ''
+    }
+  },
+  mixins: [searchMixin]
+}
+</script>
+ -->
 
 
 

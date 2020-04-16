@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from "axios"; //although an axios call is not being made, axios is still being used below on line 11
 
 export default {
   created: function() {

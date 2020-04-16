@@ -5,12 +5,11 @@
         </div>
       </section>
     <div class="container">
+      <h3>With security and technology improvments, HomeSafe is dedicated to get you to your destination safely</h3>
+      <ul>
+        <li class="text-danger" v-for="error in errors">{{ error }}</li>
+      </ul>
       <form v-on:submit.prevent="submit()">
-        <h3>With security and technology improvments, HomeSafe is dedicated to get you to your destination safely</h3>
-        <!-- <h5>Sign in</h5> -->
-        <ul>
-          <li class="text-danger" v-for="error in errors">{{ error }}</li>
-        </ul>
         <div class="form-group">
           <label>Email</label>
           <input type="email" class="form-control" v-model="email">
@@ -47,25 +46,27 @@ export default {
   },
   methods: {
     submit: function() {
-      var params = {
+      let params = {
         email: this.email,
         password: this.password
       };
       axios
         .post("/api/sessions", params)
         .then(response => {
-          console.log(response)
+          //console.log(response)
           axios.defaults.headers.common["Authorization"] =
             "Bearer " + response.data.jwt;
 
           //this.$parent.userid = response.data.user_id;
             
           localStorage.setItem("jwt", response.data.jwt);
+          //console.log(response.data.jwt)
           this.$router.push("/users/" + response.data.user_id);//this is cause sessions returns a key of user_id..refer to the controller's session on the backend
 
 
         })
         .catch(error => {
+          //console.log(error)
           this.errors = ["Invalid email or password."];
           this.email = "";
           this.password = "";

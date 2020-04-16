@@ -12,7 +12,7 @@
         <h5 class="card-title">Phone Number: {{user.phone_number}}</h5>
         <h5 class="card-title">Email: {{user.email}}</h5>  
         </div>
-      <button class="btn btn-outline-danger" v-on:click="editInfo()">Edit Info</button>
+      <button class="btn btn-outline-danger" @click="editInfo()">Edit Info</button>
       </div>
     </div>
     <br>
@@ -82,47 +82,6 @@
   
 </template>
 
-<style scoped>
-/*#startingLabel {
-  padding-left: 470px;
-}*/
-select {
-  width: 350px;
-  margin: 10px;
-    }
-#lastButton{
-  margin-top: 5px;
-}
-.selectDiv1{
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-}
-.selectDiv2{
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-}
-h5, h2{
-  color: grey;
-}
-.green {
-  color: green;
-}
-#info{
-  margin: auto;
-}
-h2{
-  text-align: center;
-}
-#h5 {
-  text-align: center;
-}
-#list {
-  text-align: center;
-}
-</style>
-
 <script>
   var axios = require ('axios')
 
@@ -177,10 +136,10 @@ export default{
       axios
         .post('/api/locations', locationParams)
         .then(response => {
-          //console.log(response)
+          console.log(response)
           this.locations.push(response.data);
         }).catch(error => {
-          console.log(error);
+          //console.log(error);
         });
     },
 
@@ -212,7 +171,7 @@ export default{
     deleteUserJourney: function(input){
       //console.log(input)
       axios
-        .delete('/api/user_journeys/' + input.id)
+        .delete('/api/user_journeys/' + input.id) //input.id, meaning userjourney.id
         .then(response => {
           var index = this.user.user_journeys.indexOf(input);
           this.user.user_journeys.splice(index, 1);
@@ -221,3 +180,43 @@ export default{
   }
 }
 </script>
+<style scoped>
+/*#startingLabel {
+  padding-left: 470px;
+}*/
+select {
+  width: 350px;
+  margin: 10px;
+    }
+#lastButton{
+  margin-top: 5px;
+}
+.selectDiv1{
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+.selectDiv2{
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+h5, h2{
+  color: grey;
+}
+.green {
+  color: green;
+}
+#info{
+  margin: auto;
+}
+h2{
+  text-align: center;
+}
+#h5 {
+  text-align: center;
+}
+#list {
+  text-align: center;
+}
+</style>

@@ -48,17 +48,11 @@ export default {
   },
   mounted() {
     //console.log(gmapApi)
-    console.log('mounted start');
+    //console.log('mounted start');
     this.$gmapApiPromiseLazy().then(() => { 
       directionsService = new google.maps.DirectionsService();
       directionsDisplay = new google.maps.DirectionsRenderer();
     });
-
-    // center map and create marker on starting location
-    
-    // create marker for user's end location
-
-    // optional: create markers for other users on journey
   },
 
   methods: {
@@ -67,14 +61,14 @@ export default {
         directionsDisplay.setMap(this.$refs.map.$mapObject);
         
         // get starting location for journey (props)
-        console.log(this.startingCoords);
-        console.log(this.endingCoords);
+        //console.log(this.startingCoords);
+        //console.log(this.endingCoords);
 
         if(this.startingCoords && this.endingCoords) {
           const start = new google.maps.LatLng(this.startingCoords.lat, this.startingCoords.lng);
           const end = new google.maps.LatLng(this.endingCoords.lat, this.endingCoords.lng);
-          console.log(this.startingCoords);
-          console.log(this.endingCoords);
+          //console.log(this.startingCoords);
+          //console.log(this.endingCoords);
           directionsService.route({
             origin: start,
             destination: end,

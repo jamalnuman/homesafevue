@@ -29,25 +29,6 @@
   </div>
 </template>
 
-<style scoped>
-  select {
-    width: 350px;
-    margin: 10px;
-  }
-  #showroute {
-    margin-top: 5px;
-  }
-  #delete {
-    margin-top: 5px;
-  }
-  #route {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-    margin-bottom: 5px;
-  }
-</style>
-
 <script>
 import axios from 'axios';
 import GoogleMap from "../components/GoogleMap";
@@ -89,8 +70,8 @@ export default {
           .get("/api/user_journeys/" + this.userJourneyId)//this is to get the endcoords..see below...the endingcoords are in the userjourney model
           .then(response => {
             if(response.data.ending_location.latitude) {
-              this.journeyCompleted = response.data.completed;
-              console.log(response.data.ending_location.latitude);
+              this.journeyCompleted = response.data.completed; //the value being change from the default value of true to false
+              //console.log(response.data.ending_location.latitude);
               this.endCoords = { //ending coords will not initially be available...that is why there is an if statement in the child element (google.map.vue)
                 lat: parseFloat(response.data.ending_location.latitude),
                 lng: parseFloat(response.data.ending_location.longitude)
@@ -152,7 +133,7 @@ export default {
             axios
               .patch("/api/user_journeys/" + this.userJourneyId, completedParams)
               .then (response => {
-                console.log(response);
+                //console.log(response);
                 this.journeyCompleted = true;
                 alert('Trip has completed!')
               });
@@ -192,7 +173,7 @@ export default {
           };
           this.$refs.googleMap.showRoute();
         }).catch(error => {
-          console.log(error);
+          //console.log(error);
         });
     },
 
@@ -205,3 +186,22 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+  select {
+    width: 350px;
+    margin: 10px;
+  }
+  #showroute {
+    margin-top: 5px;
+  }
+  #delete {
+    margin-top: 5px;
+  }
+  #route {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-bottom: 5px;
+  }
+</style>

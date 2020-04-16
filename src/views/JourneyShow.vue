@@ -1,8 +1,7 @@
 <template>
   <div class="journey-show">
     <section class="welcome_area gradient-background-overlay" style="background-image: url('https://paragon-training.com/images/products/680/20160315180525.jpg');" id="home">
-        <div class="container h-100">
-        </div>
+        <div class="container h-100"></div>
     </section>
     <div class="container">
       <div id="box1">
@@ -18,13 +17,13 @@
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
-        <h5>Select from the following users to join you</h5>
+      <h5>Select from the following users to join you</h5>
       <div id="box" align="center"> 
-          <select id="option" v-model="userId">
-            <option  v-for="user in usersMap" :value="user.id">
-              {{ user.first_name + " " + user.last_name }}  
-            </option>
-          </select>
+        <select id="option" v-model="userId">
+          <option  v-for="user in usersMap" :value="user.id">
+            {{ user.first_name + " " + user.last_name }}  
+          </option>
+        </select>
       
         <div>
           <button id="add" class="btn btn-outline-success btn-lg btn-block" @click="addUser()">Add User</button>
@@ -40,38 +39,6 @@
   </div>
   
 </template>
-
-<style scoped>
-  h5 {
-    color: grey;
-    text-align: center;
-  }
-  select {
-    width: 350px;
-    margin: 10px;
-  }
-  #add {
-    margin-top: 5px;
-  }
-  #go {
-    margin-top: 5px;
-  }
-  ul {
-    list-style-type: none;
-    text-align: center;
-  }
-  #box1 {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-  }
-  #box{
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-    margin-bottom: 15px;
-  }
-</style>
 
 <script>
 var axios = require('axios')
@@ -94,7 +61,7 @@ export default {
     axios
       .get('/api/journeys/' + this.$route.params.id)//calling the specific journey number
       .then(response => {
-        console.log(response.data.user_journey)
+        //console.log(response.data)
         this.journey = response.data;
         //console.log(this.journey);
         this.loggedInUser = this.journey.users[0].id;//the current_user is the first user[0] in journey.users[0]..this will be used below, when being redirected to the specific user's journey show page
@@ -103,6 +70,7 @@ export default {
     axios
       .get("/api/users")
       .then(response => {
+        console.log(response)
         const users = response.data; //the users hash is being filled with response.data 
         let map = {}
         for (const user of users) {
@@ -145,3 +113,35 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  h5 {
+    color: grey;
+    text-align: center;
+  }
+  select {
+    width: 350px;
+    margin: 10px;
+  }
+  #add {
+    margin-top: 5px;
+  }
+  #go {
+    margin-top: 5px;
+  }
+  ul {
+    list-style-type: none;
+    text-align: center;
+  }
+  #box1 {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  #box{
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    margin-bottom: 15px;
+  }
+</style>

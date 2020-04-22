@@ -12,7 +12,7 @@ My route home would be displayed and my route home would be tracked with GPS.
 
 
 When I arrive home, the application will automatically send a message to the rest of the group confirming that I arrived.
-![](images/Route.png)
+![](images/ArrivalScreenshot.jpeg)
 
 
 

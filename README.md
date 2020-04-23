@@ -18,6 +18,10 @@ When I arrive home, the application will automatically send a message to the res
 <img src="images/ArrivalScreenshot.jpeg" width=300>
 
 
+### Let's connect. 
+[LinkedIn Profile](https://www.linkedin.com/in/jamal-numan/).
+
+
 
 
 
